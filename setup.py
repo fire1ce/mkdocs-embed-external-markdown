@@ -14,7 +14,7 @@ setup(
     # Without them, mkdocs will not be able to recognize it.
     entry_points={
         "mkdocs.plugins": [
-            "external-markdown = external-markdown:externalMarkdown",
+            "external-markdown = external-markdown.plugin:externalMarkdown",
         ]
     },
 )
