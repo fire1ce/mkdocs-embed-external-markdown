@@ -8,7 +8,7 @@ def read(fname):
 
 setup(
     name="mkdocs-embed-external-markdown",
-    version="0.0.14",
+    version="1.0.0",
     url="https://github.com/fire1ce/mkdocs-embed-external-markdown",
     license="MIT",
     author="Stas Yakobov",
