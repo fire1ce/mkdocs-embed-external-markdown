@@ -1,19 +1,20 @@
 from mkdocs.plugins import BasePlugin
 from requests import get, exceptions
 from re import compile, match, MULTILINE
+from jinja2 import Template
 
 
 class externalMarkdown(BasePlugin):
 
     # check if url is valid and had ".md" extension
-    def is_valid_url(url):
+    def is_valid_url(self, url):
         if not match(r"^https?:\/\/.*\.md$", url):
             print("WARNING Invalid url: " + url)
             return False
         return True
 
     # get markdown from url if status code is 200
-    def get_markdown_from_url(url):
+    def get_markdown_from_url(self, url):
         try:
             response = get(url)
             if response.status_code == 200:
@@ -29,7 +30,7 @@ class externalMarkdown(BasePlugin):
             return None
 
     # get the section content from markdown
-    def get_section_from_markdown(markdown, section_name):
+    def get_section_from_markdown(self, markdown, section_name):
         pattern = compile("^## " + section_name + "$", MULTILINE)
         try:
             start_index = (pattern.search(markdown)).span()[1]
@@ -58,5 +59,4 @@ class externalMarkdown(BasePlugin):
             return self.get_markdown_from_url(url)
 
     def on_page_markdown(self, markdown, **kwargs):
-        markdown = self.external_markdown(self.url, self.section_name)
-        return markdown
+        return Template(markdown).render(external_markdown=self.external_markdown)
