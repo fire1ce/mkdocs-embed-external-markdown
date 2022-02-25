@@ -78,6 +78,48 @@ Will produce the following page:
 
 ![MkDocs Embed External Markdown Plugin](https://user-images.githubusercontent.com/16795594/155761254-17b47e65-d27e-438b-a476-15bd04fdc3ec.jpg)
 
+## How To Prevent Accidental Interpretation Of "Jinja-like" Statements
+
+The most frequent issue, when adding the MkDocs Embed External Markdown Plugin plugin to an existing mkdocs project, is some markdown pages may not be rendered correctly, or cause a syntax error, or some other error.
+
+The reason is that if Jinja2 template engine in the **MkDocs Embed External Markdown Plugin**
+meets any text that has the standard markers (typically starting with `{%`} or
+`{{`) this will cause a conflict:
+it will try to interpret that text as a macro
+and fail to behave properly.
+
+The most likely places where this can occur are the following:
+
+| Location in Markdown file (Block or Inline) | Description                                                                                                |
+| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **Code**                                    | Documented Jinja2 statements (or similar syntax), LaTeX                                                    |
+| **Maths**                                   | LaTeX statements                                                                                           |
+| _*Elsewhere*_                               | Some pre-existing templating or macro language, typically with some constructs starting with `{#` or `{{`. |
+
+### Code Blocks Containing Similar Languages
+
+With MkDocs, this situation typically occurs when the website
+is documenting an application that relies on a
+"[djangolike/jinjalike language](https://medium.com/@i5ar/template-languages-a7b362971cbc)" like:
+
+- Django Template Language
+- Jinja2 (Python)
+- Nunjucks (Javascript)
+- Twig (PHP)
+- ...
+
+This may also happen for pages that documents
+[Ansible](https://ansible-docs.readthedocs.io/zh/stable-2.0/rst/intro.html) directives, which often contain
+[variables expressed in a Jinja2 syntax](https://ansible-docs.readthedocs.io/zh/stable-2.0/rst/playbooks_variables.html#using-variables-about-jinja2).
+
+### Solutions - Explicitly marking the snippets as 'raw'
+
+```markdown
+{% raw %}
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container_name_or_id
+{% endraw %}
+```
+
 ## License
 
 ### MIT License
