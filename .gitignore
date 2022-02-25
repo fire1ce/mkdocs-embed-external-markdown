@@ -5,7 +5,9 @@
 
 # ignore dev folder and files
 dev
-
+dist
+build
+mkdocs_embed_external_markdown.egg-info
 # Icon must end with two \r
 Icon
 
