@@ -46,7 +46,7 @@ plugins:
 {{ external_markdown('url', 'section name') }}
 ```
 
-### Full markdown content
+### Full Markdown Content
 
 Embed full markdown content from a given url, you can use the following example:
 
@@ -54,7 +54,7 @@ Embed full markdown content from a given url, you can use the following example:
 {{ external_markdown('https://raw.githubusercontent.com/fire1ce/DDNS-Cloudflare-Bash/main/README.md', '') }}
 ```
 
-### Specific section
+### Specific Section
 
 Embed markdown section from a given url, you can use the following example:
 
@@ -71,7 +71,7 @@ The following example shows how to use the plugin in mkdocs project:
 
 This is an example page.
 
-## Embedding multiple markdown sections from different urls
+## Embedding Multiple Markdown Sections From Different URLs
 
 ### First Embedded Section
 
@@ -90,7 +90,7 @@ Will produce the following page:
 
 ![MkDocs Embed External Markdown Plugin](https://user-images.githubusercontent.com/16795594/155761254-17b47e65-d27e-438b-a476-15bd04fdc3ec.jpg)
 
-## How To Prevent Accidental Interpretation Of "Jinja-like" Statements
+## How To Prevent Accidental Interpretation Of `Jinja-like` Statements
 
 The most frequent issue when adding the `MkDocs Embed External Markdown Plugin` to an existing mkdocs project, is that some markdown pages may not be rendered correctly, or cause a syntax error, or some other error.
 
@@ -108,7 +108,7 @@ The most likely places where this can occur are the following:
 
 With MkDocs, this situation typically occurs when the website
 is documenting an application that relies on a
-"[djangolike/jinjalike language](https://medium.com/@i5ar/template-languages-a7b362971cbc)" like:
+[djangolike/jinjalike language](https://medium.com/@i5ar/template-languages-a7b362971cbc) like:
 
 - Django Template Language
 - Jinja2 (Python)
@@ -120,7 +120,7 @@ This may also happen for pages that documents
 [Ansible](https://ansible-docs.readthedocs.io/zh/stable-2.0/rst/intro.html) directives, which often contain
 [variables expressed in a Jinja2 syntax](https://ansible-docs.readthedocs.io/zh/stable-2.0/rst/playbooks_variables.html#using-variables-about-jinja2).
 
-### Solutions - Explicitly marking the snippets as 'raw'
+### Solutions - Explicitly Marking The Snippets as `raw`
 
 ````markdown
 {% raw %}
