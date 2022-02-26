@@ -14,7 +14,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="mkdocs-embed-external-markdown",
-    version="1.0.1",
+    version="1.1.0",
     url="https://github.com/fire1ce/mkdocs-embed-external-markdown",
     license="MIT",
     author="Stas Yakobov",
