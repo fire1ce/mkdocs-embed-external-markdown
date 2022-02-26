@@ -4,7 +4,7 @@ from re import compile, match, MULTILINE
 from jinja2 import Template
 
 
-class externalMarkdown(BasePlugin):
+class ExternalMarkdown(BasePlugin):
 
     # check if url is valid and had ".md" extension
     def is_valid_url(self, url):

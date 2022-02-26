@@ -26,6 +26,6 @@ setup(
     keywords=["mkdocs", "plugin", "markdown", "external"],
     packages=find_packages(exclude=["*.tests"]),
     entry_points={
-        "mkdocs.plugins": "external-markdown = external_markdown.plugin:externalMarkdown"
+        "mkdocs.plugins": "external-markdown = external_markdown.plugin:ExternalMarkdown"
     },
 )

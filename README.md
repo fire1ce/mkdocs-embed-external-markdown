@@ -6,14 +6,14 @@
 
 ## About
 
-MkDocs Embed External Markdown plugin that allow to inject **section** or all **full markdown** content from a given url.
-The goal is to show different markdown from different sources inside your MkDocs project.
+MkDocs Embed External Markdown plugin that allows to inject **section** or **full markdown** content from a given url.
+The goal is to embed different markdown from different sources inside your MkDocs project.
 
 ## Installation
 
 Install the package with pip:
 
-```bash
+```shell
 pip install mkdocs-embed-external-markdown
 ```
 
@@ -33,7 +33,7 @@ plugins:
 - **"##"** header (h2) will be **removed** from sorce **section** content so you can use use your own header
 - Supports multiple **sections** from any source
 
-external_markdown requiress 2 parameters: **url** and **section name**.
+`external_markdown` requires 2 parameters: **url** and **section name**.
 
 ```makrdown
 {{ external_markdown('url', 'section name') }}
@@ -64,7 +64,7 @@ The following example shows how to use the plugin in mkdocs project:
 
 This is an example page.
 
-## Embeding multiple markdown sections from different urls
+## Embedding multiple markdown sections from different urls
 
 ### First Embedded Section
 
@@ -81,13 +81,9 @@ Will produce the following page:
 
 ## How To Prevent Accidental Interpretation Of "Jinja-like" Statements
 
-The most frequent issue, when adding the MkDocs Embed External Markdown Plugin plugin to an existing mkdocs project, is some markdown pages may not be rendered correctly, or cause a syntax error, or some other error.
+The most frequent issue when adding the `MkDocs Embed External Markdown Plugin` to an existing mkdocs project, is that some markdown pages may not be rendered correctly, or cause a syntax error, or some other error.
 
-The reason is that if Jinja2 template engine in the **MkDocs Embed External Markdown Plugin**
-meets any text that has the standard markers (typically starting with `{%`} or
-`{{`) this will cause a conflict:
-it will try to interpret that text as a macro
-and fail to behave properly.
+The reason is that if Jinja2 template engine in the **MkDocs Embed External Markdown Plugin** meets any text that has the standard markers (typically starting with `{%`} or `{{`) this will cause a conflict: it will try to interpret that text as a macro and fail to behave properly.
 
 The most likely places where this can occur are the following:
 
@@ -125,11 +121,15 @@ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' con
 {% endraw %}
 ````
 
+
+## Known Issues
+- [ ] Embedding links without `.md` extension not working properly  
+
 ## License
 
 ### MIT License
 
-Copyright© 3os.org @2020
+Copyright© 3os.org @ 2022
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to
