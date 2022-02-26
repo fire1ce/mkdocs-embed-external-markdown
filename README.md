@@ -1,5 +1,6 @@
 # MkDocs Embed External Markdown Plugin
 
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/mkdocs-embed-external-markdown)](https://pypi.org/project/mkdocs-embed-external-markdown/)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/fire1ce/3os.org/tree/master/src)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://mit-license.org/)
 
