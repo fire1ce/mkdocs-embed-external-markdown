@@ -66,7 +66,6 @@ Embed markdown section from a given url, you can use the following example:
 
 The following example shows how to use the plugin in mkdocs project:
 
-```markdown
 # Example Page
 
 This is an example page.
@@ -75,10 +74,13 @@ This is an example page.
 
 ### First Embedded Section
 
+```markdown
 {{ external_markdown('https://raw.githubusercontent.com/mkdocs/mkdocs/master/README.md', 'Features') }}
+```
 
 ### Second Embedded Section
 
+```markdown
 {{ external_markdown('https://raw.githubusercontent.com/squidfunk/mkdocs-material/master/README.md', 'Quick start') }}
 ```
 
