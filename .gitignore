@@ -4,7 +4,6 @@
 .LSOverride
 
 # ignore dev folder and files
-dev
 dist
 build
 mkdocs_embed_external_markdown.egg-info
