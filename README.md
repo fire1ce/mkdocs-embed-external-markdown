@@ -16,6 +16,15 @@
 MkDocs Embed External Markdown plugin that allows to inject **section** or **full markdown** content from a given url.
 The goal is to embed different markdown from different sources inside your MkDocs project.
 
+## Version 2.xx
+
+**Braking change: Section name must include Markdown Section header like: `## Section name`**
+
+Change log:
+
+- [x] Added support for multi level sections such as `### Section name` and `#### Section name`
+- [x] Better Handling of parsing makrdowns wich contains `#` in the content
+
 ## Installation
 
 Install the package with pip:
@@ -43,7 +52,7 @@ plugins:
 `external_markdown` requires 2 parameters: **url** and **section name**.
 
 ```makrdown
-{{ external_markdown('url', 'section name') }}
+{{ external_markdown('url', '## section name') }}
 ```
 
 ### Full Markdown Content
@@ -59,7 +68,7 @@ Embed full markdown content from a given url, you can use the following example:
 Embed markdown section from a given url, you can use the following example:
 
 ```markdown
-{{ external_markdown('https://raw.githubusercontent.com/fire1ce/DDNS-Cloudflare-Bash/main/README.md', 'Installation') }}
+{{ external_markdown('https://raw.githubusercontent.com/fire1ce/DDNS-Cloudflare-Bash/main/README.md', '## Installation') }}
 ```
 
 ## MkDocs Example
@@ -76,13 +85,13 @@ This is an example page.
 ### First Embedded Section
 
 ```markdown
-{{ external_markdown('https://raw.githubusercontent.com/mkdocs/mkdocs/master/README.md', 'Features') }}
+{{ external_markdown('https://raw.githubusercontent.com/mkdocs/mkdocs/master/README.md', '## Features') }}
 ```
 
 ### Second Embedded Section
 
 ```markdown
-{{ external_markdown('https://raw.githubusercontent.com/squidfunk/mkdocs-material/master/README.md', 'Quick start') }}
+{{ external_markdown('https://raw.githubusercontent.com/squidfunk/mkdocs-material/master/README.md', '## Quick start') }}
 ```
 ````
 
