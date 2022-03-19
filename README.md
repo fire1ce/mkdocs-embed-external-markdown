@@ -44,9 +44,9 @@ plugins:
 
 ## Usage
 
-- Section defined by **"##"** header (h2)
-- **"#"** header (h1) will be **removed** from sorce content so you can use use your own header
-- **"##"** header (h2) will be **removed** from sorce **section** content so you can use use your own header
+- Section defined by **"##/###/####..."** header (h2/h3/h4...)
+- **"#"** header (h1) will be **removed** from source content so you can use use your own header
+- **"##/###/####..."** header (h2/h3/h4...) will be **removed** from source **section** content so you can use use your own header
 - Supports multiple **sections** from any source
 
 `external_markdown` requires 2 parameters: **url** and **section name**.
