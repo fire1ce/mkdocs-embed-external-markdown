@@ -31,19 +31,32 @@ class ExternalMarkdown(BasePlugin):
 
     # get the section content from markdown
     def get_section_from_markdown(self, markdown, section_name):
-        pattern = compile("^## " + section_name + "$", MULTILINE)
+        # Get the section level from section_name
         try:
-            start_index = (pattern.search(markdown)).span()[1]
+            section_level = compile("^#+ ").search(section_name).span()[1] - 1
+        except:
+            print(
+                "WARNING missing: markdown section level at the beginning of section name:",
+                section_name,
+            )
+            return None
+        # Gets the srart index of the section from markdown
+        try:
+            start_index = compile("^" + section_name + "$", MULTILINE).search(markdown).span()[1]
         except:
             print("WARNING section:", section_name, "not found in markdown")
             return None
-        pattern = compile("^#{1,2} ", MULTILINE)
-        # last section handle
+        # Gets the end index of the section from markdown (last section handle)
         try:
-            end_index = pattern.search(markdown[start_index:]).span()[0] + start_index
+            end_index = (
+                compile("^#{2," + str(section_level) + "} ", MULTILINE)
+                .search(markdown[start_index:])
+                .span()[0]
+            )
+            markdown = markdown[start_index : end_index + start_index]
         except:
-            end_index = len(markdown)
-        return markdown[start_index:end_index]
+            markdown = markdown[start_index:]
+        return markdown
 
     # get the markdown from url or markdown section
     def external_markdown(self, url, section_name):
