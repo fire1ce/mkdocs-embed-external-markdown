@@ -20,7 +20,7 @@ The goal is to embed different markdown from different sources inside your MkDoc
 
 **Braking change: Section name must include Markdown Section header like: `## Section name`**
 
-Change log:
+Changelog:
 
 - [x] Added support for multi level sections such as `### Section name` and `#### Section name`
 - [x] Better Handling of parsing makrdowns wich contains `#` in the content
