@@ -61,7 +61,7 @@ class EmbedExternalMarkdown(BasePlugin):
         if section_name:
             markdown = self.get_markdown_from_url(url)
             if markdown:
-                return self.get_section_from_markdown(markdown, section_name)
+                return self.get_section_from_markdown(markdown, section_name, url)
         else:
             return self.get_markdown_from_url(url)
 
