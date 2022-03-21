@@ -24,6 +24,7 @@ Changelog:
 
 - [x] Added support for multi level sections such as `### Section name` and `#### Section name`
 - [x] Better Handling of parsing makrdowns wich contains `#` in the content
+- [x] Failing Mkdocs Build when Markdown content cannot be fetched
 
 ## Installation
 

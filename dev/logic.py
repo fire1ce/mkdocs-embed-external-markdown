@@ -1,19 +1,19 @@
 from requests import get, exceptions
 from re import compile, match, MULTILINE
+from sys import exit
 
 
 # url = "https://raw.githubusercontent.com/fire1ce/DDNS-Cloudflare-PowerShell/main/README.md"
 # section_name = "License"
 # section_name = "License"
 
-url = "https://raw.githubusercontent.com/wsargent/docker-cheat-sheet/master/README.md"
-section_name = "#### CPU Constraints"
+url = "https://raw.githubusercontent.com/wsargent/docker-cheat-sheet/master/READMEdd.md"
+section_name = "## CPU Constraints"
 
 # check if url is valid and had ".md" extension
 def is_valid_url(url):
     if not match(r"^https?:\/\/.*\.md$", url):
-        print("WARNING Invalid url: " + url)
-        return False
+        exit(f"Error! {url} is not a valid markdown url")
     return True
 
 
@@ -27,11 +27,9 @@ def get_markdown_from_url(url):
             markdown = markdown[markdown.find("\n") + 1 :]
             return markdown
         else:
-            print("WARNING", url, "return status code: " + str(response.status_code))
-            return None
+            exit(f"Error! {url} returned status code: {str(response.status_code)}")
     except exceptions.ConnectionError:
-        print("WARNING", url, "Connection error")
-        return None
+        exit(f"Error! {url} returned connection error")
 
 
 # get the section content from markdown
@@ -40,17 +38,14 @@ def get_section_from_markdown(markdown, section_name):
     try:
         section_level = compile("^#+ ").search(section_name).span()[1] - 1
     except:
-        print(
-            "WARNING missing: markdown section level at the beginning of section name:",
-            section_name,
+        exit(
+            f"Error! Missing markdown section level at the beginning of section name: {section_name}"
         )
-        return None
     # Gets the srart index of the section from markdown
     try:
         start_index = compile("^" + section_name + "$", MULTILINE).search(markdown).span()[1]
     except:
-        print("WARNING section:", section_name, "not found in markdown")
-        return None
+        exit(f'Error! Section: "{section_name}" not found in markdown {url}')
     # Gets the end index of the section from markdown (last section handle)
     try:
         end_index = (
@@ -66,14 +61,11 @@ def get_section_from_markdown(markdown, section_name):
 
 # get the markdown from url or markdown section
 def external_markdown(url, section_name):
-    if not is_valid_url(url):
-        return None
+    is_valid_url(url)
     if section_name:
         markdown = get_markdown_from_url(url)
         if markdown:
             return get_section_from_markdown(markdown, section_name)
-        else:
-            return None
     else:
         return get_markdown_from_url(url)
 

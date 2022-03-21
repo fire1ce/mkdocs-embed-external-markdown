@@ -2,15 +2,15 @@ from mkdocs.plugins import BasePlugin
 from requests import get, exceptions
 from re import compile, match, MULTILINE
 from jinja2 import Template
+from sys import exit
 
 
-class ExternalMarkdown(BasePlugin):
+class EmbedExternalMarkdown(BasePlugin):
 
     # check if url is valid and had ".md" extension
     def is_valid_url(self, url):
         if not match(r"^https?:\/\/.*\.md$", url):
-            print("WARNING Invalid url: " + url)
-            return False
+            exit(f"{self.__module__} Error! {url} is not a valid markdown url")
         return True
 
     # get markdown from url if status code is 200
@@ -23,29 +23,26 @@ class ExternalMarkdown(BasePlugin):
                 markdown = markdown[markdown.find("\n") + 1 :]
                 return markdown
             else:
-                print("WARNING", url, "return status code: " + str(response.status_code))
-                return None
+                exit(
+                    f"{self.__module__} Error! {url} returned status code: {str(response.status_code)}"
+                )
         except exceptions.ConnectionError:
-            print("WARNING", url, "Connection error")
-            return None
+            exit(f"{self.__module__} Error! {url} returned connection error")
 
     # get the section content from markdown
-    def get_section_from_markdown(self, markdown, section_name):
+    def get_section_from_markdown(self, markdown, section_name, url):
         # Get the section level from section_name
         try:
             section_level = compile("^#+ ").search(section_name).span()[1] - 1
         except:
-            print(
-                "WARNING missing: markdown section level at the beginning of section name:",
-                section_name,
+            exit(
+                f"{self.__module__} Error! Missing markdown section level at the beginning of section name: {section_name}"
             )
-            return None
         # Gets the srart index of the section from markdown
         try:
             start_index = compile("^" + section_name + "$", MULTILINE).search(markdown).span()[1]
         except:
-            print("WARNING section:", section_name, "not found in markdown")
-            return None
+            exit(f'{self.__module__} Error! Section: "{section_name}" not found in markdown {url}')
         # Gets the end index of the section from markdown (last section handle)
         try:
             end_index = (
@@ -60,14 +57,11 @@ class ExternalMarkdown(BasePlugin):
 
     # get the markdown from url or markdown section
     def external_markdown(self, url, section_name):
-        if not self.is_valid_url(url):
-            return None
+        self.is_valid_url(url)
         if section_name:
             markdown = self.get_markdown_from_url(url)
             if markdown:
                 return self.get_section_from_markdown(markdown, section_name)
-            else:
-                return None
         else:
             return self.get_markdown_from_url(url)
 
