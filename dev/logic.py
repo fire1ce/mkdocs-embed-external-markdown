@@ -13,7 +13,8 @@ section_name = "## CPU Constraints"
 # check if url is valid and had ".md" extension
 def is_valid_url(url):
     if not match(r"^https?:\/\/.*\.md$", url):
-        exit(f"Error! {url} is not a valid markdown url")
+        print(f"Error! {url} is not a valid url")
+        exit(1)
     return True
 
 
@@ -27,9 +28,11 @@ def get_markdown_from_url(url):
             markdown = markdown[markdown.find("\n") + 1 :]
             return markdown
         else:
-            exit(f"Error! {url} returned status code: {str(response.status_code)}")
+            print(f"Error! {url} returned status code: {str(response.status_code)}")
+            exit(1)
     except exceptions.ConnectionError:
-        exit(f"Error! {url} returned connection error")
+        print(f"Error! {url} returned connection error")
+        exit(1)
 
 
 # get the section content from markdown
@@ -38,14 +41,16 @@ def get_section_from_markdown(markdown, section_name):
     try:
         section_level = compile("^#+ ").search(section_name).span()[1] - 1
     except:
-        exit(
+        print(
             f"Error! Missing markdown section level at the beginning of section name: {section_name}"
         )
+        exit(1)
     # Gets the srart index of the section from markdown
     try:
         start_index = compile("^" + section_name + "$", MULTILINE).search(markdown).span()[1]
     except:
-        exit(f'Error! Section: "{section_name}" not found in markdown {url}')
+        print(f'Error! Section: "{section_name}" not found in markdown {url}')
+        exit(1)
     # Gets the end index of the section from markdown (last section handle)
     try:
         end_index = (
