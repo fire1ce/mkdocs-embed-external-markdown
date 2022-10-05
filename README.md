@@ -43,6 +43,10 @@ plugins:
   - external-markdown
 ```
 
+## Compatibility with Github private repos
+
+If the GH_TOKEN environment variable is set with an authorized personal access token then the authorization header will be added to the request and content from private repositories can be fetched
+
 ## Usage
 
 - Section defined by **"##/###/####..."** header (h2/h3/h4...)
