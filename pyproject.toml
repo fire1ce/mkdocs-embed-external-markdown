@@ -1,7 +1,7 @@
 
 [tool.poetry]
 name = "mkdocs-embed-external-markdown"
-version = "2.2.0"
+version = "2.3.0"
 description = "Mkdocs plugin that allow to inject external markdown or markdown section from given url"
 authors = ["fire1ce <dev@3os.org>"]
 license = "MIT"
