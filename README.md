@@ -22,6 +22,7 @@ The goal is to embed different markdown from different sources inside your MkDoc
 
 Changelog:
 
+- [x] Add ability to import content from private github repositories. Thanks to @sd0408
 - [x] Added support for multi level sections such as `### Section name` and `#### Section name`
 - [x] Better Handling of parsing makrdowns wich contains `#` in the content
 - [x] Failing Mkdocs Build when Markdown content cannot be fetched
