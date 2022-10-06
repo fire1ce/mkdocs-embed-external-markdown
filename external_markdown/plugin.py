@@ -3,7 +3,7 @@ from requests import get, exceptions
 from re import compile, match, MULTILINE
 from jinja2 import Template
 from sys import exit
-
+import os
 
 class EmbedExternalMarkdown(BasePlugin):
 
@@ -17,7 +17,12 @@ class EmbedExternalMarkdown(BasePlugin):
     # get markdown from url if status code is 200
     def get_markdown_from_url(self, url):
         try:
-            response = get(url)
+            GH_TOKEN = os.getenv('GH_TOKEN')
+            if GH_TOKEN:
+                headers = {'Authorization': 'token ' + GH_TOKEN}
+                response = get(url, headers=headers)
+            else: 
+                response = get(url)
             if response.status_code == 200:
                 # remove the heading
                 markdown = response.text
