@@ -34,11 +34,18 @@ jobs:
 
           # Bump version
           NEW_VERSION=$(python bump_version.py)
-          git tag $NEW_VERSION
+          echo "New version: $NEW_VERSION"
 
-          # Commit and push the new tag
-          git commit -am "Bump version to $NEW_VERSION"
-          git push --tags
+          # Check if tag exists
+          TAG_EXISTS=$(git ls-remote --tags origin $NEW_VERSION)
+
+          if [ -z "$TAG_EXISTS" ]; then
+            # Create new tag and push
+            git tag $NEW_VERSION
+            git push --tags
+          else
+            echo "Tag $NEW_VERSION already exists. Skipping tag creation."
+          fi
 
       - name: Install dependencies
         run: |
