@@ -28,9 +28,16 @@ jobs:
       - name: Bump version and create tag
         if: steps.check_version_bump.outputs.bump == 'true' && github.event_name == 'push'
         run: |
+          # Configure Git user
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          python bump_version.py | xargs git tag
+
+          # Bump version
+          NEW_VERSION=$(python bump_version.py)
+          git tag $NEW_VERSION
+
+          # Commit and push the new tag
+          git commit -am "Bump version to $NEW_VERSION"
           git push --tags
 
       - name: Install dependencies
