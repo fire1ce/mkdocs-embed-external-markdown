@@ -25,23 +25,28 @@ jobs:
         run: |
           BUMP=$(git log -1 --pretty=%B | grep -q '\[bump\]' && echo true || echo false)
           echo "BUMP=$BUMP" >> $GITHUB_ENV
-          echo "::set-output name=bump::$BUMP"
+          echo "bump=$BUMP" >> $GITHUB_OUTPUT
 
       - name: Bump version and create tag
-        if: steps.check_version_bump.outputs.bump == 'true' && github.event_name == 'push'
+        if: github.event_name == 'push'
         run: |
-          # Configure Git user
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
+          BUMP=$(cat $GITHUB_OUTPUT | grep "bump=" | cut -d'=' -f2)
+          if [ "$BUMP" == "true" ]; then
+            # Configure Git user
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git config --global user.name "github-actions[bot]"
 
-          # Install bumpversion
-          pip install bumpversion
+            # Install bumpversion
+            pip install bumpversion
 
-          # Bump version
-          bumpversion patch --verbose
+            # Bump version
+            bumpversion patch --verbose
 
-          # Push the new commit and tag
-          git push && git push --tags
+            # Push the new commit and tag
+            git push && git push --tags
+          else
+            echo "Skipping bump version and create tag step"
+          fi
 
       - name: Install dependencies
         run: |
