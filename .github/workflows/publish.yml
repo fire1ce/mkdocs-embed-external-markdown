@@ -32,25 +32,14 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
+          # Install bumpversion
+          pip install bumpversion
+
           # Bump version
-          NEW_VERSION=$(python bump_version.py)
-          echo "New version: $NEW_VERSION"
+          bumpversion patch --verbose
 
-          # Check if tag exists
-          TAG_EXISTS=$(git ls-remote --tags origin $NEW_VERSION)
-
-          if [ -z "$TAG_EXISTS" ]; then
-            # Create new tag
-            git tag $NEW_VERSION
-            
-            # Commit the changes
-            git commit -am "Bump version to $NEW_VERSION"
-
-            # Push the new tag
-            git push --tags
-          else
-            echo "Tag $NEW_VERSION already exists. Skipping tag creation."
-          fi
+          # Push the new tag
+          git push --tags
 
       - name: Install dependencies
         run: |
