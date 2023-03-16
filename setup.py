@@ -14,13 +14,12 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="mkdocs-embed-external-markdown",
-    use_scm_version=True,  # Use setuptools_scm to auto-version the package
-    setup_requires=["setuptools_scm"],
+    version='',  # This line will be replaced by the version from .bumpversion.cfg
     url="https://github.com/fire1ce/mkdocs-embed-external-markdown",
     license="MIT",
     author="Stas Yakobov",
     author_email="dev@3os.org",
-    description="Mkdocs plugin that allow to inject external markdown or markdown section from given url",
+    description="Mkdocs plugin that allows injecting external markdown or markdown sections from a given URL",
     long_description_content_type="text/markdown",
     long_description=long_description,
     install_requires=["mkdocs", "requests", "jinja2"],
