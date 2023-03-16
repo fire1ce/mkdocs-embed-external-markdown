@@ -38,8 +38,8 @@ jobs:
           # Bump version
           bumpversion patch --verbose
 
-          # Push the new tag
-          git push --tags
+          # Push the new commit and tag
+          git push && git push --tags
 
       - name: Install dependencies
         run: |
@@ -57,14 +57,4 @@ jobs:
           username: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
           # distribution: dist/*
-          repository-url: https://github.com/fire1ce/mkdocs-embed-external-markdown
-
-      - name: Create Git tag
-        run: |
-          git tag v$VERSION
-          git push --tags
-
-      - name: Commit tag change
-        run: |
-          git commit -am "Bump version to $VERSION"
-          git push
+          repository-url: https://upload.pypi.org/legacy/
