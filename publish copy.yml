@@ -1,5 +1,4 @@
-name: CI/CD on push to main
-
+name: CI/CD
 on:
   push:
     branches:
