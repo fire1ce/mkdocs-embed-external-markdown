@@ -23,7 +23,9 @@ jobs:
       - name: Check for version bump
         id: check_version_bump
         run: |
-          echo "BUMP=$(git log -1 --pretty=%B | grep -q '\[bump\]' && echo true || echo false)" >> $GITHUB_ENV
+          BUMP=$(git log -1 --pretty=%B | grep -q '\[bump\]' && echo true || echo false)
+          echo "BUMP=$BUMP" >> $GITHUB_ENV
+          echo "::set-output name=bump::$BUMP"
 
       - name: Bump version and create tag
         if: steps.check_version_bump.outputs.bump == 'true' && github.event_name == 'push'
