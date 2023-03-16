@@ -1,0 +1,37 @@
+
+[tool.poetry]
+authors = ["fire1ce <dev@3os.org>"]
+description = "Mkdocs plugin that allow to inject external markdown or markdown section from given url"
+homepage = "https://3os.org/guides/markdown-cheatsheet/external-markdown/"
+keywords = [
+  "mkdocs",
+  "plugin",
+  "markdown",
+  "external-markdown",
+  "embed",
+  "external",
+  "markdown-section",
+]
+license = "MIT"
+name = "mkdocs-embed-external-markdown"
+packages = [
+  {include = "external_markdown/plugin.py"},
+]
+readme = "README.md"
+repository = "https://github.com/fire1ce/mkdocs-embed-external-markdown"
+version = "2.3.0"
+
+[tool.poetry.dependencies]
+Jinja2 = "^3.0.3"
+python = "^3.6.2"
+requests = "^2.27.1"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+
+[tool.poetry.plugins."mkdocs.plugins"]
+external-markdown = 'external_markdown.plugin:EmbedExternalMarkdown'

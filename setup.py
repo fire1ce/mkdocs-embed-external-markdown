@@ -14,7 +14,8 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="mkdocs-embed-external-markdown",
-    version="2.1.1",
+    use_scm_version=True,  # Use setuptools_scm to auto-version the package
+    setup_requires=["setuptools_scm"],
     url="https://github.com/fire1ce/mkdocs-embed-external-markdown",
     license="MIT",
     author="Stas Yakobov",
@@ -25,7 +26,5 @@ setup(
     install_requires=["mkdocs", "requests", "jinja2"],
     keywords=["mkdocs", "plugin", "markdown", "external"],
     packages=find_packages(exclude=["*.tests"]),
-    entry_points={
-        "mkdocs.plugins": "external-markdown = external_markdown.plugin:EmbedExternalMarkdown"
-    },
+    entry_points={"mkdocs.plugins": "external-markdown = external_markdown.plugin:EmbedExternalMarkdown"},
 )
