@@ -25,12 +25,12 @@ jobs:
         run: |
           BUMP=$(git log -1 --pretty=%B | grep -q '\[bump\]' && echo true || echo false)
           echo "BUMP=$BUMP" >> $GITHUB_ENV
-          echo "bump=$BUMP" >> $GITHUB_OUTPUT
+          echo "$BUMP" > bump_output.txt
 
       - name: Bump version and create tag
         if: github.event_name == 'push'
         run: |
-          BUMP=$(cat $GITHUB_OUTPUT | grep "bump=" | cut -d'=' -f2)
+          BUMP=$(cat bump_output.txt)
           if [ "$BUMP" == "true" ]; then
             # Configure Git user
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
