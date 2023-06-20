@@ -16,16 +16,34 @@
 MkDocs Embed External Markdown plugin that allows to inject **section** or **full markdown** content from a given url.
 The goal is to embed different markdown from different sources inside your MkDocs project.
 
-## Version 2.xx
+## Version 3.xx
 
-**Braking change: Section name must include Markdown Section header like: `## Section name`**
+Version 3.0.0 (2023-06-20)
 
-Changelog:
+Added
 
-- [x] Add ability to import content from private github repositories. Thanks to @sd0408
-- [x] Added support for multi level sections such as `### Section name` and `#### Section name`
-- [x] Better Handling of parsing makrdowns wich contains `#` in the content
-- [x] Failing Mkdocs Build when Markdown content cannot be fetched
+- [x] Modularized the code into separate methods for improved readability and maintainability.
+- [x] Added type hints for better code understanding and possible performance improvements.
+- [x] Included regex pre-compilation for performance enhancement.
+- [x] Enhanced URL validation to check for the structure of a URL rather than just the presence of .md.
+- [x] Improved error logging through the use of logger.warning instead of print statements, which integrates with MkDocs' logging system.
+- [x] Added handling for relative links in the markdown, making them absolute based on the base URL.
+- [x] Introduced better error handling for Connection Errors and Status Codes through optional return types.
+
+Removed:
+
+- [x] Removed the use of sys.exit(1) on error, allowing the MkDocs build process to continue even if the plugin encounters an issue.
+- [x] Removed the strict requirement for a section level at the beginning of a section name.
+      Changed
+- [x] Switched from using re.compile for one-time regex patterns to using re.match or re.search.
+- [x] Extracted the GitHub token once at the beginning of the request method instead of multiple times.
+- [x] Replaced the check for .md at the end of the URL with a more comprehensive regular expression to validate the URL's structure.
+
+Fixed:
+
+- [x] Handling of section extraction is now more robust and less prone to errors.
+
+Please note that this is a major version update and may contain breaking changes. Carefully read the updated documentation and test the plugin thoroughly before upgrading in a production environment.
 
 ## Installation
 
@@ -149,28 +167,19 @@ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' con
 
 ## Known Issues
 
-- [ ] Embedding links without `.md` extension not working properly
+- [ ]
+
+## Version 2.xx Changelog Archive
+
+**Braking change: Section name must include Markdown Section header like: `## Section name`**
+
+Changelog:
+
+- [x] Add ability to import content from private github repositories. Thanks to @sd0408
+- [x] Added support for multi level sections such as `### Section name` and `#### Section name`
+- [x] Better Handling of parsing makrdowns wich contains `#` in the content
+- [x] Failing Mkdocs Build when Markdown content cannot be fetched
 
 ## License
 
-### MIT License
-
-Copyright© 3os.org @ 2022
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to
-deal in the Software without restriction, including without limitation the
-rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-sell copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-IN THE SOFTWARE.
+This project is licensed under the terms of the [MIT License](LICENSE.md).
