@@ -138,8 +138,8 @@ class EmbedExternalMarkdown(BasePlugin):
 
         return markdown
 
-    def on_page_markdown(self, markdown: str, **kwargs) -> str:
+    def on_page_markdown(self, markdown: str, config, **kwargs) -> str:
         """
         Render the markdown content using the Jinja2 template engine.
         """
-        return Template(markdown).render(external_markdown=self.external_markdown)
+        return Template(markdown).render(external_markdown=self.external_markdown, config=config)
