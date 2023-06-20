@@ -2,11 +2,10 @@
 #### Macos ####
 ###############
 
-# ignore dev folder and files
+# ignore dev & build folders and files
 /dist/
 /build/
 /dev/
-mkdocs_embed_external_markdown.egg-info
 
 # General
 .DS_Store
