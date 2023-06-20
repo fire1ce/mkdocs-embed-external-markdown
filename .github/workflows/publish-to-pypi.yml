@@ -1,0 +1,43 @@
+name: Publish Python Package
+
+on:
+  workflow_dispatch: # Triggered programmatically manually or other workflows
+
+env:
+  USE_TEST_PYPI: 'false' # Set this to 'false' to publish to PyPI instead of TestPyPI
+
+jobs:
+  pypi-publish:
+    name: Publish Package to PyPI
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the repository content to the GitHub Actions runner.
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      # Set up Python environment on the runner.
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      # Install the necessary dependencies to build and publish Python packages.
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+
+      # Build the Python package.
+      - name: Build package
+        run: python -m build
+
+      # Publish the package distributions to TestPyPI or PyPI based on the environment variable.
+      - name: Publish package
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ env.USE_TEST_PYPI == 'true' && secrets.TEST_PYPI_API_TOKEN || secrets.PYPI_API_TOKEN }}
+          repository-url: ${{ env.USE_TEST_PYPI == 'true' && 'https://test.pypi.org/legacy/' || 'https://upload.pypi.org/legacy/' }}
+# Note:
+# - Ensure that you have set the PYPI_API_TOKEN or TEST_PYPI_API_TOKEN secrets in your repository.
+# - Use the 'main' branch or specify the branch you wish to use for publishing.
+# - Change the USE_TEST_PYPI environment variable to 'false' if you want to publish to the real PyPI.

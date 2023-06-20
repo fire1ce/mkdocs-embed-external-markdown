@@ -1,0 +1,77 @@
+# This workflow automatically creates a GitHub release whenever a new version is specified in the 'pyproject.toml' file.
+# The new version must be incremented relative to the most recent tag for the release to be created.
+name: Create Release if New Version
+
+on:
+  # This workflow is triggered whenever code is pushed to the 'main' branch.
+  push:
+    branches:
+      - main # or the branch you are using
+
+jobs:
+  # This job checks the 'pyproject.toml' file for a new version, and if found and incremented,
+  # creates a tag and a GitHub release for that new version.
+  create_release_if_new_version:
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the repository code to the runner.
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Setup the required Python environment.
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      # Install the Python packages required to read the 'pyproject.toml' file and to check versions.
+      - name: Install toml and packaging packages
+        run: pip install toml packaging
+
+      # Get the current version from the 'pyproject.toml' file.
+      - name: Get version from pyproject.toml
+        id: get_version
+        run: echo "::set-output name=version::$(python -c 'import toml; print(toml.load("pyproject.toml")["project"]["version"])')"
+
+      # Fetch all tags to be able to check the latest tag against the new version.
+      - name: Fetch all tags
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
+      # Check if the new version is greater than the latest tag.
+      - name: Check if version is incremented
+        id: check_version
+        run: |
+          LATEST_TAG=$(git tag | sort -V | tail -n 1)
+          LATEST_TAG=${LATEST_TAG#v}
+          NEW_VERSION=${{ steps.get_version.outputs.version }}
+          python -c "from packaging.version import parse; exit(0 if parse('$NEW_VERSION') > parse('$LATEST_TAG') else 1)"
+        continue-on-error: true # Continue even if the new version is not incremented
+
+      # If the new version is incremented, create a new tag.
+      - name: Create Tag
+        if: steps.check_version.outcome == 'success'
+        run: git tag v${{ steps.get_version.outputs.version }}
+
+      # Push the new tag to the repository.
+      - name: Push Tag
+        if: steps.check_version.outcome == 'success'
+        run: git push --tags
+
+      # Create a new GitHub release with the new tag.
+      - name: Create GitHub Release
+        if: steps.check_version.outcome == 'success'
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: v${{ steps.get_version.outputs.version }}
+          name: Release v${{ steps.get_version.outputs.version }}
+          commit: main # or the branch you are using
+          body: 'Description of the release v${{ steps.get_version.outputs.version }}'
+
+      # Trigger the "Publish Python Package" workflow if release was successfully created
+      - name: Trigger Publish Python Package Workflow
+        if: steps.check_version.outcome == 'success'
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: 'Publish Python Package' # Replace this with the filename of the "Publish Python Package" workflow
+          token: ${{ secrets.GITHUB_TOKEN }}
