@@ -18,6 +18,12 @@ The goal is to embed different markdown from different sources inside your MkDoc
 
 ## Version 3.xx
 
+Version 3.0.1 (2023-06-21)
+
+Fixed:
+
+- [x] Crash caused by conflict with Jinja2 render engine expects `config` parameter from other 3rd party plugins.
+
 Version 3.0.0 (2023-06-20)
 
 Added
