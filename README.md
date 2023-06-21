@@ -40,7 +40,9 @@ Removed:
 
 - [x] Removed the use of sys.exit(1) on error, allowing the MkDocs build process to continue even if the plugin encounters an issue.
 - [x] Removed the strict requirement for a section level at the beginning of a section name.
-      Changed
+
+Changed
+
 - [x] Switched from using re.compile for one-time regex patterns to using re.match or re.search.
 - [x] Extracted the GitHub token once at the beginning of the request method instead of multiple times.
 - [x] Replaced the check for .md at the end of the URL with a more comprehensive regular expression to validate the URL's structure.
