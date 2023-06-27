@@ -16,43 +16,6 @@
 MkDocs Embed External Markdown plugin that allows to inject **section** or **full markdown** content from a given url.
 The goal is to embed different markdown from different sources inside your MkDocs project.
 
-## Version 3.xx
-
-Version 3.0.1 (2023-06-21)
-
-Fixed:
-
-- [x] Crash caused by conflict with Jinja2 render engine expects `config` parameter from other 3rd party plugins.
-
-Version 3.0.0 (2023-06-20)
-
-Added
-
-- [x] Modularized the code into separate methods for improved readability and maintainability.
-- [x] Added type hints for better code understanding and possible performance improvements.
-- [x] Included regex pre-compilation for performance enhancement.
-- [x] Enhanced URL validation to check for the structure of a URL rather than just the presence of .md.
-- [x] Improved error logging through the use of logger.warning instead of print statements, which integrates with MkDocs' logging system.
-- [x] Added handling for relative links in the markdown, making them absolute based on the base URL.
-- [x] Introduced better error handling for Connection Errors and Status Codes through optional return types.
-
-Removed:
-
-- [x] Removed the use of sys.exit(1) on error, allowing the MkDocs build process to continue even if the plugin encounters an issue.
-- [x] Removed the strict requirement for a section level at the beginning of a section name.
-
-Changed
-
-- [x] Switched from using re.compile for one-time regex patterns to using re.match or re.search.
-- [x] Extracted the GitHub token once at the beginning of the request method instead of multiple times.
-- [x] Replaced the check for .md at the end of the URL with a more comprehensive regular expression to validate the URL's structure.
-
-Fixed:
-
-- [x] Handling of section extraction is now more robust and less prone to errors.
-
-Please note that this is a major version update and may contain breaking changes. Carefully read the updated documentation and test the plugin thoroughly before upgrading in a production environment.
-
 ## Installation
 
 Install the package with pip:
@@ -177,7 +140,46 @@ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' con
 
 - [ ]
 
-## Version 2.xx Changelog Archive
+## Changelog
+
+### Version 3.xx
+
+Version 3.0.1 (2023-06-21)
+
+Fixed:
+
+- [x] Crash caused by conflict with Jinja2 render engine expects `config` parameter from other 3rd party plugins.
+
+Version 3.0.0 (2023-06-20)
+
+Added
+
+- [x] Modularized the code into separate methods for improved readability and maintainability.
+- [x] Added type hints for better code understanding and possible performance improvements.
+- [x] Included regex pre-compilation for performance enhancement.
+- [x] Enhanced URL validation to check for the structure of a URL rather than just the presence of .md.
+- [x] Improved error logging through the use of logger.warning instead of print statements, which integrates with MkDocs' logging system.
+- [x] Added handling for relative links in the markdown, making them absolute based on the base URL.
+- [x] Introduced better error handling for Connection Errors and Status Codes through optional return types.
+
+Removed:
+
+- [x] Removed the use of sys.exit(1) on error, allowing the MkDocs build process to continue even if the plugin encounters an issue.
+- [x] Removed the strict requirement for a section level at the beginning of a section name.
+
+Changed
+
+- [x] Switched from using re.compile for one-time regex patterns to using re.match or re.search.
+- [x] Extracted the GitHub token once at the beginning of the request method instead of multiple times.
+- [x] Replaced the check for .md at the end of the URL with a more comprehensive regular expression to validate the URL's structure.
+
+Fixed:
+
+- [x] Handling of section extraction is now more robust and less prone to errors.
+
+Please note that this is a major version update and may contain breaking changes. Carefully read the updated documentation and test the plugin thoroughly before upgrading in a production environment.
+
+### Version 2.xx Changelog Archive
 
 **Braking change: Section name must include Markdown Section header like: `## Section name`**
 
