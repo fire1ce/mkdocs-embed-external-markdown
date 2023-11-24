@@ -9,7 +9,7 @@ from typing import Optional
 
 # Pre-compile regular expressions
 SECTION_LEVEL_REGEX = re.compile("^#+ ", re.IGNORECASE)
-LINK_PATTERN_REGEX = re.compile(r"\[(?P<alt_text>[^\]]*)\]\((?P<link_url>[^\)]*)\)", re.MULTILINE | re.IGNORECASE)
+LINK_PATTERN_REGEX = re.compile(r"\[(?P<alt_text>[^\]]*)\]\([^#](?P<link_url>[^\)]*)\)", re.MULTILINE | re.IGNORECASE)
 
 logger = logging.getLogger("mkdocs.plugins")
 
