@@ -9,7 +9,7 @@ from typing import Optional
 
 # Pre-compile regular expressions
 SECTION_LEVEL_REGEX = re.compile("^#+ ", re.IGNORECASE)
-LINK_PATTERN_REGEX = re.compile(r"\[(?P<alt_text>[^\]]*)\]\([^#](?P<link_url>[^\)]*)\)", re.MULTILINE | re.IGNORECASE)
+LINK_PATTERN_REGEX = re.compile(r"\[(?P<alt_text>[^\]]*)\]\((?P<link_url>[^\)]*)\)", re.MULTILINE | re.IGNORECASE)
 
 logger = logging.getLogger("mkdocs.plugins")
 
@@ -106,7 +106,9 @@ class EmbedExternalMarkdown(BasePlugin):
         """
 
         def replace_link(match):
-            link_url = urljoin(base_url, match.group("link_url"))
+            link_url = str(match.group("link_url"))
+            if not link_url.startswith("#"):
+                link_url = urljoin(base_url, link_url)
             return f'[{match.group("alt_text")}]({link_url})'
 
         return LINK_PATTERN_REGEX.sub(replace_link, markdown)

@@ -32,6 +32,10 @@ dependencies = [
 Source = 'https://github.com/fire1ce/pypi-test'
 
 [project.optional-dependencies]
+test = [
+  "pytest>=7.4.3",
+  "mkdocs>=1.5.3",
+]
 
 [project.scripts]
 
