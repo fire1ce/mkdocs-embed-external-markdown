@@ -29,7 +29,7 @@ dependencies = [
 ]
 
 [project.urls]
-Source = 'https://github.com/fire1ce/pypi-test'
+Source = 'https://github.com/fire1ce/mkdocs-embed-external-markdown/'
 
 [project.optional-dependencies]
 test = [
