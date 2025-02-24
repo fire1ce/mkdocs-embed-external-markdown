@@ -24,6 +24,20 @@ Install the package with pip:
 pip install mkdocs-embed-external-markdown
 ```
 
+### Installation for development
+
+To run the tests, first install the package and its test dependencies with pip:
+
+```shell
+pip install .[test]
+```
+
+You can now run the tests in `tests/` with `pytest`:
+
+```shell
+python -m pytest tests/
+```
+
 ## Configuration
 
 Enable the plugin in your `mkdocs.yml` file:

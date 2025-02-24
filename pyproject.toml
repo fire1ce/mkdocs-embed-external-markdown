@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mkdocs-embed-external-markdown"
-version = "3.0.1"
+version = "3.0.2"
 description = "Mkdocs plugin that allow to inject external markdown or markdown section from given url"
 readme = {file = "README.md", content-type = "text/markdown"}
 authors = [{name = "Stas Yakobov", email = "dev@3os.org"}]
@@ -29,9 +29,13 @@ dependencies = [
 ]
 
 [project.urls]
-Source = 'https://github.com/fire1ce/pypi-test'
+Source = 'https://github.com/fire1ce/mkdocs-embed-external-markdown/'
 
 [project.optional-dependencies]
+test = [
+  "pytest>=7.4.3",
+  "mkdocs>=1.5.3",
+]
 
 [project.scripts]
 
